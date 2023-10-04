@@ -1,22 +1,26 @@
-create table contacts
+CREATE TABLE contacts
 (
-    contactId        varchar(100) primary key,
-    firstName        varchar(150) not null,
-    lastName         varchar(150) not null,
-    contactNumbersId varchar(100) foreign key,
-    emailAddressesId varchar(100) foreign key,
+    contactId        VARCHAR(100) PRIMARY KEY,
+    firstName        VARCHAR(150) NOT NULL,
+    lastName         VARCHAR(150) NOT NULL,
+    contactNumbersId VARCHAR(100),
+    emailAddressesId VARCHAR(100),
+    FOREIGN KEY (contactNumbersId) REFERENCES contactNumbers(id),
+    FOREIGN KEY (emailAddressesId) REFERENCES emailAddresses(id)
 );
 
-create table contactNumbers
+CREATE TABLE contactNumbers
 (
-    id              varchar(50) primary key,
-    number          varchar(50) not null,
-    contactNumberId varchar(100) foreign key
+    id              VARCHAR(50) PRIMARY KEY,
+    number          VARCHAR(50) NOT NULL,
+    contactId       VARCHAR(100),
+    FOREIGN KEY (contactId) REFERENCES contacts(contactId)
 );
 
-create table emailAddresses
+CREATE TABLE emailAddresses
 (
-    id             varchar(50) primary key,
-    email          varchar(50) not null,
-    emailAddressId varchar(100) foreign key
+    id             VARCHAR(50) PRIMARY KEY,
+    email          VARCHAR(50) NOT NULL,
+    contactId      VARCHAR(100),
+    FOREIGN KEY (contactId) REFERENCES contacts(contactId)
 );
